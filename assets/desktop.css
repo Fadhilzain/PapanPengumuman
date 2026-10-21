@@ -1,0 +1,167 @@
+/* =========================================================
+   Papan Pengumuman — tampilan khusus layar PC (≥ 1280px)
+   Tiga kolom: teks / papan / teks — mengikuti pola DESIGN.md
+   ========================================================= */
+:root {
+  --cream:  #ffedd7;
+  --walnut: #100904;
+  --bark:   #382416;
+  --cork:   #40372e;
+  --drift:  #6c5f51;
+  --ember:  #dc5000;
+  --font: 'Inter', 'Söhne', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bar-h: 56px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  min-width: 1280px;
+  background: var(--walnut); color: var(--cream);
+  font-family: var(--font); font-weight: 500;
+  font-feature-settings: "ss01" on;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;              /* tiap kolom bergulir sendiri */
+}
+a { color: inherit; }
+::selection { background: var(--bark); }
+
+.label { font-size: 12px; line-height: 1.2; }
+.muted { color: var(--drift); }
+.dash { border: 0; border-top: 1px dashed var(--cork); margin: 24px 0; }
+.body { font-size: 18px; font-weight: 400; line-height: 1.35; text-transform: none; max-width: 36ch; }
+
+/* ---------- Bilah atas ---------- */
+.bar {
+  height: var(--bar-h);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 24px; border-bottom: 1px dashed var(--cork);
+}
+.bar__logo { font-size: 14px; text-decoration: none; }
+.bar__tagline { font-size: 12px; color: var(--drift); }
+.bar__right { display: flex; justify-content: flex-end; align-items: center; gap: 24px; font-size: 12px; }
+.bar__server { display: flex; align-items: center; gap: 8px; }
+.bar__server b { font-weight: 500; }
+.bar__link { text-decoration: none; border-bottom: 1px dashed var(--cream); padding-bottom: 2px; }
+.dot { width: 8px; height: 8px; border-radius: 9999px; background: var(--cream); animation: blink 2s infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+
+/* ---------- Kerangka tiga kolom ---------- */
+.shell {
+  height: calc(100vh - var(--bar-h));
+  display: grid;
+  grid-template-columns: minmax(380px, 30%) 1fr minmax(280px, 22%);
+}
+.col { overflow-y: auto; padding: 41px 31px; scrollbar-width: thin; scrollbar-color: var(--cork) transparent; }
+.col--left  { border-right: 1px dashed var(--cork); }
+.col--right { border-left: 1px dashed var(--cork); display: flex; flex-direction: column; }
+.col--center { padding: 0; display: flex; flex-direction: column; }
+
+/* ---------- Kolom kiri ---------- */
+.display { font-size: clamp(38px, 3.2vw, 68px); line-height: .9; margin-bottom: 24px; }
+.subhead { font-size: 18px; line-height: 1; margin-bottom: 8px; }
+.form { display: grid; gap: 24px; }
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.field { display: grid; gap: 8px; }
+.field input, .field textarea, .field select {
+  font: inherit; font-size: 16px; font-weight: 400; text-transform: none;
+  color: var(--cream); background: transparent;
+  border: 0; border-bottom: 1px solid var(--cream); border-radius: 0;
+  padding: 6px 2px; color-scheme: dark; resize: vertical;
+}
+.field select option { background: var(--walnut); }
+.field ::placeholder { color: var(--drift); }
+.form__actions { display: flex; align-items: center; gap: 18px; }
+#form-pesan.is-err { color: var(--ember); }
+.hint { font-size: 10px; color: var(--drift); }
+
+.pill {
+  font: inherit; font-size: 14px; color: var(--cream); cursor: pointer;
+  background: var(--bark); border: 0; border-radius: 36px; padding: 14px 24px;
+}
+.pill:hover { background: #4a3020; }
+.pill:disabled { opacity: .5; cursor: wait; }
+
+/* ---------- Kolom tengah ---------- */
+.center__head {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--walnut);
+  padding: 41px 31px 18px; border-bottom: 1px dashed var(--cork);
+}
+.heading { font-size: 41px; line-height: .9; margin-bottom: 24px; }
+.filters { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.filters__group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.ghost {
+  font: inherit; font-size: 12px; color: var(--cream); cursor: pointer;
+  background: transparent; border: 1px solid var(--cork);
+  border-radius: 22.5px; padding: 7.5px 14px; transition: border-color .2s;
+}
+.ghost:hover, .ghost.is-on { border-color: var(--cream); }
+.ghost:disabled { opacity: .35; cursor: default; border-color: var(--cork); }
+.ghost:focus-visible, .pill:focus-visible, .field :focus-visible { outline: 1px dashed var(--cream); outline-offset: 4px; }
+
+.list { flex: 1; display: grid; align-content: start; gap: 18px; padding: 24px 31px; }
+.item {
+  border: 1px solid var(--cork); border-radius: 12px; padding: 24px;
+  display: grid; grid-template-columns: 170px 1fr; gap: 24px;
+  transition: border-color .2s; animation: in .3s ease both;
+}
+.item:hover { border-color: var(--drift); }
+.item.is-expired { opacity: .5; }
+.item__meta { display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
+.item__tag { color: var(--ember); }
+.item__date { color: var(--drift); }
+.item__title { font-size: 24px; line-height: 1.09; margin-bottom: 10px; }
+.item__text { font-size: 17px; font-weight: 400; text-transform: none; line-height: 1.45; white-space: pre-line; max-width: 64ch; }
+.item__foot {
+  margin-top: 18px; padding-top: 12px; border-top: 1px dashed var(--cork);
+  display: flex; justify-content: space-between; gap: 12px; font-size: 10px; color: var(--drift);
+}
+.item__del { font: inherit; font-size: 10px; background: none; border: 0; color: var(--drift); cursor: pointer; text-decoration: underline; opacity: 0; transition: opacity .2s; }
+.item:hover .item__del, .item__del:focus-visible { opacity: 1; }
+.item__del:hover { color: var(--cream); }
+.empty { padding: 41px 0; font-size: 14px; color: var(--drift); }
+@keyframes in { from { opacity: 0; transform: translateY(6px); } }
+
+.pager {
+  position: sticky; bottom: 0; background: var(--walnut);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 31px; border-top: 1px dashed var(--cork);
+}
+
+/* ---------- Kolom kanan ---------- */
+.server-name { font-size: clamp(26px, 2.3vw, 40px); line-height: 1; margin-top: 12px; overflow-wrap: break-word; }
+.stat { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; }
+.stat strong { font-size: 51px; line-height: .9; font-weight: 500; }
+.stat .stat__small { font-size: 18px; }
+.note { font-size: 15px; font-weight: 400; line-height: 1.4; text-transform: none; color: var(--cream); }
+.legend { margin-top: 24px; display: grid; gap: 8px; font-size: 12px; }
+.sw { display: inline-block; width: 18px; height: 10px; border-radius: 9999px; margin-right: 10px; border: 1px solid var(--cream); vertical-align: middle; }
+.sw--on { background: var(--cream); }
+.sw--off { opacity: .4; }
+.foot { margin-top: auto; padding-top: 31px; display: grid; gap: 8px; }
+.credit { color: var(--ember); font-size: 10px; line-height: 1.3; }
+.legal { font-family: Arial, system-ui, sans-serif; font-size: 8px; color: var(--drift); }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+/* ---------- Tambahan Tugas 1: banner, pencarian, galat ---------- */
+.bar .served-by { margin: 0; font-size: 12px; color: var(--drift); text-align: center; }
+.bar .served-by strong { color: var(--cream); font-weight: 500; }
+.server-meta { margin-top: 12px; color: var(--drift); }
+
+.search { display: grid; gap: 8px; margin-bottom: 18px; }
+.search input {
+  font: inherit; font-size: 16px; font-weight: 400; text-transform: none;
+  color: var(--cream); background: transparent; color-scheme: dark;
+  border: 0; border-bottom: 1px solid var(--cream); border-radius: 0; padding: 6px 2px;
+}
+.search input::placeholder { color: var(--drift); }
+.search input:focus-visible { outline: 1px dashed var(--cream); outline-offset: 4px; }
+
+.notice { margin-top: 14px; padding: 10px 14px; border: 1px dashed var(--cork); border-radius: 12px; font-size: 12px; }
+.notice--err { color: var(--ember); border-color: var(--ember); }
+.field__err { min-height: 12px; font-size: 10px; color: var(--ember); }
+.field .is-invalid { border-bottom-color: var(--ember); }

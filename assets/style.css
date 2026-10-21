@@ -1,0 +1,232 @@
+/* =========================================================
+   Papan Pengumuman — mengikuti DESIGN.md (gaya "darkroom editorial")
+   ========================================================= */
+:root {
+  --cream:   #ffedd7;   /* teks */
+  --walnut:  #100904;   /* kanvas */
+  --bark:    #382416;   /* permukaan / tombol terisi */
+  --cork:    #40372e;   /* garis tipis */
+  --drift:   #6c5f51;   /* teks sekunder */
+  --ember:   #dc5000;   /* aksen: tag & kredit saja */
+
+  --font: 'Inter', 'Söhne', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --display: clamp(44px, 9vw, 120px);
+  --heading: clamp(32px, 4.2vw, 41px);
+  --body: clamp(18px, 2vw, 24px);
+  --gutter: 24px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--walnut);
+  color: var(--cream);
+  font-family: var(--font);
+  font-weight: 500;
+  font-feature-settings: "ss01" on;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+::selection { background: var(--bark); }
+
+/* Tipografi dasar */
+.label { font-size: 12px; line-height: 1.2; color: var(--cream); }
+.heading { font-size: var(--heading); line-height: .9; }
+.body {
+  font-size: var(--body); font-weight: 400; line-height: 1.26;
+  text-transform: none; max-width: 34ch;
+}
+.dash { border: 0; border-top: 1px dashed var(--cork); margin: 18px 0; }
+
+/* ---------- Navigasi ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px var(--gutter);
+  background: linear-gradient(var(--walnut), rgba(16,9,4,0));
+}
+.nav__logo { font-size: 14px; text-decoration: none; }
+.nav__menu { display: flex; gap: 24px; }
+.nav__menu a { font-size: 12px; text-decoration: none; padding-bottom: 3px; border-bottom: 1px dashed transparent; }
+.nav__menu a:hover, .nav__menu a.is-active { border-bottom-color: var(--cream); }
+
+.side-label {
+  position: fixed; right: 12px; top: 50%; z-index: 9;
+  transform: translateY(-50%); writing-mode: vertical-rl;
+  font-size: 10px; white-space: nowrap; color: var(--drift);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+  padding: 96px var(--gutter) var(--gutter);
+  border-bottom: 1px dashed var(--cork);
+}
+.hero__tagline { font-size: 12px; margin-bottom: 14px; }
+.hero__display { font-size: var(--display); line-height: .9; }
+
+.hero__object { display: grid; place-items: center; }
+.note {
+  position: relative; width: min(320px, 70vw); aspect-ratio: 4/5;
+  background: var(--bark); border-radius: 12px; padding: 41px 31px;
+  display: flex; flex-direction: column; gap: 14px;
+  transform: rotate(-6deg);
+  /* cahaya pinggir hangat dari kanan atas, tanpa drop-shadow */
+  background-image: radial-gradient(circle at 85% 8%, rgba(255,237,215,.14), transparent 55%);
+  animation: float 7s ease-in-out infinite;
+}
+.note__pin {
+  position: absolute; top: 14px; left: 50%; width: 18px; height: 18px;
+  margin-left: -9px; border-radius: 9999px; background: var(--cream);
+}
+.note__tag { font-size: 10px; color: var(--ember); margin-top: 18px; }
+.note__line { height: 10px; border-radius: 9999px; background: var(--cork); }
+.note__line--short { width: 60%; }
+.note__date { margin-top: auto; font-size: 10px; color: var(--drift); border-top: 1px dashed var(--cork); padding-top: 12px; }
+@keyframes float { 50% { transform: rotate(-3deg) translateY(-10px); } }
+@media (prefers-reduced-motion: reduce) { .note { animation: none; } }
+
+.hero__card {
+  position: absolute; left: var(--gutter); bottom: var(--gutter);
+  max-width: 360px; padding: 24px; border-radius: 12px;
+  background: rgba(255,237,215,.05); border: 1px solid var(--cork);
+}
+.hero__card h2 { font-size: 14px; line-height: 1.1; }
+.hero__card p { font-size: 15px; font-weight: 400; text-transform: none; line-height: 1.3; }
+.hero__stat {
+  position: absolute; right: 45px; bottom: var(--gutter);
+  padding: 18px 24px; border-radius: 12px; border: 1px solid var(--cork);
+  display: flex; flex-direction: column; gap: 8px; min-width: 160px;
+}
+.hero__stat strong { font-size: 51px; line-height: .9; font-weight: 500; }
+
+/* ---------- Section umum ---------- */
+.section {
+  min-height: 100vh; padding: 96px 45px 68px var(--gutter);
+  border-bottom: 1px dashed var(--cork);
+}
+.section__head {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;
+  margin-bottom: 41px;
+}
+
+/* Filter */
+.filters { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
+.filters__group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Tombol ghost & pill */
+.ghost {
+  font: inherit; font-size: 12px; color: var(--cream); cursor: pointer;
+  background: transparent; border: 1px solid var(--cork);
+  border-radius: 22.5px; padding: 7.5px 14px;
+  transition: border-color .2s, background .2s;
+}
+.ghost:hover { border-color: var(--cream); }
+.ghost.is-on { border-color: var(--cream); }
+.ghost:disabled { opacity: .35; cursor: default; border-color: var(--cork); }
+.ghost:focus-visible, .pill:focus-visible, .field input:focus-visible,
+.field textarea:focus-visible, .field select:focus-visible { outline: 1px dashed var(--cream); outline-offset: 4px; }
+
+.pill {
+  font: inherit; font-size: 14px; color: var(--cream); cursor: pointer;
+  background: var(--bark); border: 0; border-radius: 36px; padding: 14px 24px;
+}
+.pill:hover { background: #4a3020; }
+.pill:disabled { opacity: .5; cursor: wait; }
+
+/* Daftar pengumuman */
+.list { display: grid; gap: 18px; min-height: 200px; }
+.item {
+  border: 1px solid var(--cork); border-radius: 12px; padding: 24px;
+  display: grid; grid-template-columns: 180px 1fr; gap: 24px;
+  animation: in .35s ease both;
+}
+.item.is-expired { opacity: .5; }
+.item__meta { display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
+.item__tag { color: var(--ember); }
+.item__date { color: var(--drift); }
+.item__title { font-size: 24px; line-height: 1.09; margin-bottom: 12px; }
+.item__text { font-size: 18px; font-weight: 400; text-transform: none; line-height: 1.4; white-space: pre-line; max-width: 62ch; }
+.item__foot {
+  margin-top: 18px; padding-top: 12px; border-top: 1px dashed var(--cork);
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  font-size: 10px; color: var(--drift);
+}
+.item__del { font: inherit; font-size: 10px; background: none; border: 0; color: var(--drift); cursor: pointer; text-decoration: underline; }
+.item__del:hover { color: var(--cream); }
+.empty { padding: 41px 0; font-size: 14px; color: var(--drift); }
+@keyframes in { from { opacity: 0; transform: translateY(8px); } }
+
+.pager { display: flex; justify-content: space-between; align-items: center; margin-top: 31px; }
+
+/* Form — input garis bawah saja */
+.form { display: grid; gap: 31px; max-width: 760px; }
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 31px; }
+.field { display: grid; gap: 10px; }
+.field input, .field textarea, .field select {
+  font: inherit; font-size: 18px; font-weight: 400; text-transform: none;
+  color: var(--cream); background: transparent;
+  border: 0; border-bottom: 1px solid var(--cream); border-radius: 0;
+  padding: 6px 2px; color-scheme: dark; resize: vertical;
+}
+.field select option { background: var(--walnut); }
+.field ::placeholder { color: var(--drift); }
+.form__actions { display: flex; align-items: center; gap: 24px; }
+#form-pesan.is-err { color: var(--ember); }
+
+/* Server */
+.section--server { min-height: 70vh; }
+.server-name { font-size: clamp(41px, 7vw, 96px); line-height: .9; margin-top: 18px; overflow-wrap: break-word; }
+.section--server .body { max-width: 52ch; margin-bottom: 24px; }
+
+.footer {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  padding: 24px var(--gutter);
+}
+.credit { color: var(--ember); font-size: 12px; }
+.legal { font-family: Arial, system-ui, sans-serif; font-size: 8px; color: var(--drift); }
+
+/* ---------- Responsif ---------- */
+@media (max-width: 820px) {
+  .nav__menu { gap: 14px; }
+  .nav__menu a[href="#intro"], .nav__menu a[href="#server"] { display: none; }
+  .side-label { display: none; }
+  .hero { grid-template-columns: 1fr; gap: 31px; }
+  .hero__card, .hero__stat { position: static; max-width: none; }
+  .hero__stat { flex-direction: row; align-items: center; justify-content: space-between; }
+  .pager { gap: 8px; }
+  .pager .label { text-align: center; }
+  .hero__stat strong { font-size: 41px; }
+  .section { padding: 80px var(--gutter) 45px; }
+  .section__head, .form__row { grid-template-columns: 1fr; }
+  .item { grid-template-columns: 1fr; gap: 14px; }
+  .item__meta { flex-direction: row; flex-wrap: wrap; gap: 14px; }
+  .pager .ghost { padding: 7.5px 10px; }
+}
+
+/* ---------- Tambahan Tugas 1: banner, pencarian, galat ---------- */
+.served-by { margin: 0; font-size: 11px; line-height: 1.3; color: var(--drift); text-align: center; }
+.served-by strong { color: var(--cream); font-weight: 500; }
+.server-meta { margin-top: 14px; color: var(--drift); }
+
+.search { display: grid; gap: 8px; max-width: 520px; margin-bottom: 24px; }
+.search input {
+  font: inherit; font-size: 18px; font-weight: 400; text-transform: none;
+  color: var(--cream); background: transparent; color-scheme: dark;
+  border: 0; border-bottom: 1px solid var(--cream); border-radius: 0; padding: 6px 2px;
+}
+.search input::placeholder { color: var(--drift); }
+.search input:focus-visible { outline: 1px dashed var(--cream); outline-offset: 4px; }
+
+.notice { margin-bottom: 18px; padding: 12px 18px; border: 1px dashed var(--cork); border-radius: 12px; font-size: 12px; }
+.notice--err { color: var(--ember); border-color: var(--ember); }
+.field__err { min-height: 12px; font-size: 10px; color: var(--ember); }
+.field .is-invalid { border-bottom-color: var(--ember); }
+
+@media (max-width: 820px) {
+  .nav { flex-wrap: wrap; row-gap: 8px; }
+  .served-by { order: 3; width: 100%; text-align: left; }
+}
