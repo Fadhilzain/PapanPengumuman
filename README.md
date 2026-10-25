@@ -14,7 +14,7 @@ Pengumuman yang sudah lewat tanggalnya otomatis pindah ke arsip.
 |---|---|---|---|
 | m0 | Ketua | Fadhil Zain | 103012400329 |
 | m1 | Anggota | Muhammad Alfian Nurhakim | 103012400377 |
-| m2 | Anggota | _diisi anggota_ | _NIM_ |
+| m2 | Anggota | Kevin Habri Adreva | 103012400007 |
 | m3 | Anggota | _diisi anggota_ | _NIM_ |
 | m4 | Anggota | _diisi anggota_ | _NIM_ |
 
