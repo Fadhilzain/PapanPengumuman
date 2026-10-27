@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS pengumuman (
 -- Data anggota Kelompok 4 — anggota lain mengisi baris m1..m4 lewat pull request
 INSERT IGNORE INTO anggota (route_id, nim, nama) VALUES
   ('m0', '103012400329', 'Fadhil Zain'),
-  ('m1', '00000000001', 'Nama Anggota 1'),
+  ('m1', '103012400377', 'Muhammad Alfian Nurhakim'),
   ('m2', '00000000002', 'Nama Anggota 2'),
   ('m3', '00000000003', 'Nama Anggota 3'),
   ('m4', '00000000004', 'Nama Anggota 4');
